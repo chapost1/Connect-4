@@ -1,0 +1,577 @@
+body,
+html {
+    height: 100%;
+    -webkit-user-select: none; /* Safari 3.1+ */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */
+}
+
+body {
+    margin: 0px;
+    background-color: rgb(158, 130, 97);
+    overflow:hidden;
+}
+
+#background-img {
+    position: relative;
+    background-image: url(./images/room-interior-empty.jpg);
+    height: calc(100vh - 4px);
+    background-position: center;
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    padding: 2px 4px;
+    overflow: hidden;
+}
+
+#game {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+.game-headers{
+    overflow: hidden;
+    position: relative;
+}
+
+.marker{
+    padding: 2px 8px;
+    background-color: rgba(51, 98, 132, 0.63);
+    border-radius: 16px;
+    color: white;
+    -moz-transition:all 0.5s ease-in-out;
+    -webkit-transition:all 0.5s ease-in-out;
+    -o-transition:all 0.5s ease-in-out;
+    -ms-transition:all 0.5s ease-in-out;
+    transition:all 0.5s ease-in-out;
+    -moz-animation:blink normal 1.5s infinite ease-in-out;
+    /* Firefox */
+    -webkit-animation:blink normal 1.5s infinite ease-in-out;
+    /* Webkit */
+    -ms-animation:blink normal 1.5s infinite ease-in-out;
+    /* IE */
+    animation:blink normal 1.5s infinite ease-in-out;
+    /* Opera */
+    background-image: linear-gradient(to right bottom, rgb(196, 38, 38), rgb(169, 32, 39), rgb(142, 28, 38), rgb(115, 25, 35), rgb(89, 22, 31));
+}
+
+.fs-4 {
+    font-size: 4rem;
+    font-family: 'Gloria Hallelujah', cursive;
+    margin: 32px 0px;
+}
+
+.fs-4 span{
+    text-decoration: underline;
+}
+
+#playerHead{
+    position: absolute;
+    font-size: 1.5rem;
+    top: -23px;
+    font-family: sans-serif;
+}
+
+#board {
+    position: relative;
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+    border: 1px solid #32358a;
+    background-color: rgb(48, 62, 180);
+    background-image: linear-gradient(to bottom, #3a47b7, #3945b6, #3844b4, #3642b2, #3541b1);
+    width: 490px;
+    height: 420px;
+    margin: auto;
+    border-radius: 8px;
+}
+
+.board-overlay{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(to bottom, #4444c4, #413eb3, #3e38a2, #3a3291, #362d81);
+    opacity: 0.4;
+    z-index: 2;
+}
+
+.cell {
+    position: relative;
+    height: 70px;
+    width: 70px;
+    background-color: transparent;
+    z-index: 2;
+}
+
+.glow{
+    filter: brightness(168%) sepia(500%);
+    box-shadow: unset !important;
+}
+
+#board.active .shine{
+    filter: brightness(168%) sepia(500%);
+}
+
+.column {
+    position: relative;
+    display: inline-block;
+}
+
+.column-overlay{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left: 0;
+    z-index: 4;
+}
+
+#board.active .column-overlay:not(.full){
+    cursor: pointer;
+}
+
+#board.active .column-overlay:not(.full):hover::before{
+    content: '';
+    color: white;
+    position: absolute;
+    top: -47px;
+    z-index: 3;
+    transform: translateX(-50%);
+    font-size: 4rem;
+    background-image: url(./images/arrow-35383_960_720.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 40px;
+    z-index: inherit;
+    opacity: 0.7;
+    -moz-transition:all 0.5s ease-in-out;
+    -webkit-transition:all 0.5s ease-in-out;
+    -o-transition:all 0.5s ease-in-out;
+    -ms-transition:all 0.5s ease-in-out;
+    transition:all 0.5s ease-in-out;
+    -moz-animation:blink normal 1s infinite ease-in-out;
+    /* Firefox */
+    -webkit-animation:blink normal 1s infinite ease-in-out;
+    /* Webkit */
+    -ms-animation:blink normal 1s infinite ease-in-out;
+    /* IE */
+    animation:blink normal 1s infinite ease-in-out;
+    /* Opera */
+}
+
+#board.active .column-overlay.full:hover::before{
+    content: 'Full';
+    color: rgb(92, 30, 30);
+    position: absolute;
+    top: -32px;
+    z-index: 3;
+    transform: translateX(-58%);
+    font-family: 'Gloria Hallelujah', cursive;
+    font-size: 1.2rem;
+}
+
+.cell-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    background-color: rgb(40, 48, 122);
+    background-image: linear-gradient(to right bottom, #343c8e, #2e3582, #272f77, #21286b, #1b2260);
+    border: 1px solid rgb(41, 40, 116);
+}
+
+.cell-circle::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; right:0; bottom: 0;
+    background-size: inherit;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    border-radius: 50%;
+}
+
+.cell-circle.active{
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 2px 0 rgba(0,0,0,.12);
+}
+
+.cell-circle.active::before{
+    opacity: 1;
+}
+
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    -webkit-appearance: button;
+    cursor: pointer;
+    text-transform: none;
+    overflow: visible;
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+.btn-game{
+    outline: none;
+    background-color: rgb(158, 60, 60);
+    color: white;
+    margin:6px;
+    opacity: 0.95;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.btn-game:hover{
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.274);
+    border: 1px solid white;
+    color:white;
+    box-shadow: unset;
+}
+
+.btn-game:active{
+    background-color: rgba(0, 0, 0, 0.459);
+    color:rgba(88, 81, 81, 0.815);
+}
+
+@media screen and (max-width:991px) {
+    #game {
+        top: 60px;
+    }
+
+    #playerHead{
+        font-size: 1.4rem;
+        top: -10px;
+    }
+
+    .fs-4 {
+        font-size: 3rem;
+    }
+
+    #board {
+        width: 350px;
+        height: 300px;
+    }
+
+    .cell {
+        height: 50px;
+        width: 50px;
+    }
+
+    .row {
+        height: 50px;
+    }
+
+    .cell-circle {
+        height: 30px;
+        width: 30px;
+    }
+    #board.active .column:not(.full):hover::before{
+        top: -35px;
+        transform: translateX(-50%);
+        height: 70%;
+        width: 30px;
+        font-size: 2rem;
+    }
+    
+    #board.active .column.full:hover::before{
+        top: -28px;
+        transform: translateX(-58%);
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width:767px) {
+    #game {
+        top: 30px;
+    }
+    
+    #playerHead{
+        font-size: 1.2rem;
+    }
+
+    .fs-4 {
+        font-size: 2rem;
+    }
+
+    #board {
+        width: 280px;
+        height: 240px;
+    }
+
+    .cell {
+        height: 40px;
+        width: 40px;
+    }
+
+    .row {
+        height: 40px;
+    }
+
+    .cell-circle {
+        height: 25px;
+        width: 25px;
+    }
+    #board.active .column:not(.full):hover::before{
+        top: -30px;
+        transform: translateX(-50%);
+        height: 60%;
+        width: 26px;
+        font-size: 1.8rem;
+    }
+    
+    #board.active .column.full:hover::before{
+        top: -28px;
+        transform: translateX(-58%);
+        font-size: 0.9
+    }
+}
+
+@media screen and (max-height:778px) {
+    #game {
+        top: 60px;
+    }
+    
+    #playerHead{
+        font-size: 1.4rem;
+        top: -10px;
+    }
+
+    .fs-4 {
+        font-size: 3rem;
+    }
+
+    #board {
+        width: 350px;
+        height: 300px;
+    }
+
+    .cell {
+        height: 50px;
+        width: 50px;
+    }
+
+    .row {
+        height: 50px;
+    }
+
+    .cell-circle {
+        height: 30px;
+        width: 30px;
+    }
+    #board.active .column:not(.full):hover::before{
+        top: -35px;
+        transform: translateX(-50%);
+        height: 70%;
+        width: 30px;
+        font-size: 2rem;
+    }
+    
+    #board.active .column.full:hover::before{
+        top: -32px;
+        transform: translateX(-58%);
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-height:564px) and (min-width:385px) {
+    #game {
+        top: 30px;
+    }
+        
+    #playerHead{
+        font-size: 1.2rem;
+    }
+
+    .fs-4 {
+        font-size: 2rem;
+    }
+
+    #board {
+        width: 280px;
+        height: 240px;
+    }
+
+    .cell {
+        height: 40px;
+        width: 40px;
+    }
+
+    .row {
+        height: 40px;
+    }
+
+    .cell-circle {
+        height: 25px;
+        width: 25px;
+    }
+    #board.active .column:not(.full):hover::before{
+        top: -30px;
+        transform: translateX(-50%);
+        height: 60%;
+        width: 26px;
+        font-size: 1.8rem;
+    }
+    
+    #board.active .column.full:hover::before{
+        top: -28px;
+        transform: translateX(-58%);
+        font-size: 0.9
+    }
+}
+
+@keyframes blink {
+    from {
+        opacity:0;
+    }
+
+    50% {
+        opacity:0.7;
+    }
+
+    to {
+        opacity:0;
+    }
+}
+@-webkit-keyframes blink {
+    from {
+        opacity:0;
+    }
+
+    50% {
+        opacity:0.7;
+    }
+
+    to {
+        opacity:0;
+    }
+}
+
+.snack{
+    position: fixed;
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width:350px;
+    height:50px;
+    background-color: #222;
+    text-align: center;
+    transition: all 1s;
+}
+
+#snack-message{
+    height: 50px;
+    color: #bfbfbf;
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 1.5rem;
+    padding-top: 13px;
+}
+
+/* For Loading-Spinner */
+div.spinner .app-loading{
+    height: calc(100vh - 4px);
+    width: 100%;
+    background-color: #c4e6e8;
+    z-index: 14000;
+    position:absolute;
+    top:0;
+    left:0;
+    background-image: url(./images/room-interior-empty.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    padding: 2px 0px;
+    overflow: hidden;
+}
+.app-loading {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.app-loading .spinner {
+  height: 600px;
+  width: 600px;
+  animation: rotate 2s linear infinite;
+  transform-origin: center center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.app-loading .logo {
+  width: 100%;
+  height: 100vh;
+  background: url() center center no-repeat; 
+}
+.app-loading .spinner .path {
+  stroke-dasharray: 1, 200;
+  stroke-dashoffset: 0;
+  animation: dash 1.5s ease-in-out infinite;
+  stroke-linecap: round;
+  stroke: rgb(50, 56, 119);
+}
+@media screen and (max-width:991px){
+  .app-loading .spinner {
+    height: 400px;
+    width: 400px;
+  }
+  .logo{
+    background-size: 20% !important;
+  }
+}
+@media screen and (max-width:575px){
+  .app-loading .spinner {
+    height: 250px;
+    width: 250px;
+  }
+  .logo{
+    background-size: 34% !important;
+  }
+}
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px;
+  }
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px;
+  }
+}

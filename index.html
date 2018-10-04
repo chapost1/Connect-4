@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>4 In A Row</title>
+    <link rel="icon" href="./images/ic.png" type="image/png" sizes="16x16" />
+    <!--App Style-->
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <!--Font For Game Main Header -> h1 -->
+    <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+</head>
+
+<body>
+    <!--Main BG DOM FATHER-->
+    <div id="background-img">
+        <label>&copy;Shahar Tal</label>
+        <!--Game Main DIV-->
+        <div id="game">
+            <div class="game-headers">
+                <h3 id="playerHead">Turn:
+                    <mark class="marker"></mark>
+                </h3>
+                <h1 class="fs-4">4 In A
+                    <span>Row!</span>
+                </h1>
+            </div>
+            <!--Board El-->
+            <div id="board" class="active"></div>
+            <!--Restart && New Game BTN-->
+            <button id="gameBTN" onclick="resetGame()" class="btn btn-game"></button>
+        </div>
+    </div>
+    <!--Simple Snack Bar El for Messages Toggle-->
+    <div class="snack">
+        <div id="snack-message"></div>
+    </div>
+    <!--While App loads, show spinner for user experience-->
+    <div class="spinner">
+        <div class="app-loading">
+            <div class="logo"></div>
+            <svg class="spinner" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    <!--App Script-->
+    <script src="./script.js" type="application/javascript"></script>
+</body>
+
+</html>
